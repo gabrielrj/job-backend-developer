@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::controller(\App\Http\Controllers\ProductController::class)->group(function (){
+    Route::get('/products', 'index');
+    Route::get('/products/find/{id}', 'show');
+    Route::get('/products/search-by-name-or-category/{searchText}', 'getAllProductsWithNameOrCategory');
+    Route::get('/products/search-by-category/{searchText}', 'getAllProductsWithSpecificCategory');
+    Route::get('/products/get-all-with-image/', 'getAllProductsWithImage');
+    Route::get('/products/get-all-without-image/', 'getAllProductsWithoutImage');
+    Route::post('/products', 'store');
+    Route::put('/products/{product}', 'update');
+    Route::delete('/products/{id}', 'delete');
 });
+
